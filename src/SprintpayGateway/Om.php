@@ -4,9 +4,35 @@ namespace SprintpayGateway;
 
 class Om {
 
-    public static function makePaiementFees($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$autorisation,$datetime) {
+    public function buildDateHeader() {
+        date_default_timezone_set('UTC');
+        return date('Y-m-d\TH:i:s\Z', time());
+    }
+
+    public function buildAuthorizationHeader($apiKey, $apiSecret, $date) {
+        //Concat your keys and DateTime in the following order : APISecret + APIKey + DateTime
+        $toSign = $apiSecret . $apiKey . $date;
+
+        //Sign using SHA1.
+        $messageBytes = utf8_encode($toSign);
+        $secretBytes = utf8_encode($apiSecret);
+        $result = hash_hmac('sha1', $messageBytes, $secretBytes);
+
+        //Encode the result in base 64.
+        $signature = base64_encode($result);
+
+        //Concat all results like this: SP:APIKey:signature
+        return "SP:" . $apiKey . ':' . $signature;
+    }
+
+
+    public static function makePaiementFees($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$apikey,$apisecret) {
 
         $curl = curl_init(); $today = date("Y-m-d H:i:s");
+
+        $datetime = buildDateHeader(); 
+
+        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.sprint-pay.com/sprintpayapi/payment/orangemoney/request",
@@ -54,9 +80,13 @@ class Om {
 
     }
 
-    public static function makePaiementFeesTest($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$autorisation,$datetime) {
+    public static function makePaiementFeesTest($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$apikey,$apisecret) {
 
         $curl = curl_init(); $today = date("Y-m-d H:i:s");
+
+        $datetime = buildDateHeader(); 
+
+        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://test-api.sprint-pay.com/sprintpayapi/payment/orangemoney/request",
@@ -104,9 +134,13 @@ class Om {
 
     }
  
-    public static function makePaiement($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$orderid, $ville, $company, $backurl, $notiyurl, $autorisation,$datetime) {
+    public static function makePaiement($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$orderid, $ville, $company, $backurl, $notiyurl, $apikey,$apisecret) {
 
         $today = date("Y-m-d H:i:s");
+
+        $datetime = buildDateHeader(); 
+
+        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         $curl = curl_init();
 
@@ -176,9 +210,13 @@ class Om {
 
     }
 
-    public static function makePaiementTest($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$orderid, $ville, $company, $backurl, $notiyurl, $autorisation,$datetime) {
+    public static function makePaiementTest($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$orderid, $ville, $company, $backurl, $notiyurl, $apikey,$apisecret) {
 
         $today = date("Y-m-d H:i:s");
+
+        $datetime = buildDateHeader(); 
+
+        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         $curl = curl_init();
 
@@ -248,9 +286,13 @@ class Om {
 
     }
 
-    public static function checkPaiement($transactionid, $autorisation,$datetime) {
+    public static function checkPaiement($transactionid, $apikey,$apisecret) {
 
         $curl = curl_init();
+
+        $datetime = buildDateHeader(); 
+
+        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.sprint-pay.com/sprintpayapi/payment/orangemoney/check/v2?transaction=" . $transactionid . "",
@@ -293,9 +335,13 @@ class Om {
 
     }
 
-    public static function checkPaiementTest($transactionid, $autorisation,$datetime) {
+    public static function checkPaiementTest($transactionid, $apikey,$apisecret) {
 
         $curl = curl_init();
+
+        $datetime = buildDateHeader(); 
+
+        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://test-api.sprint-pay.com/sprintpayapi/payment/orangemoney/check/v2?transaction=" . $transactionid . "",
