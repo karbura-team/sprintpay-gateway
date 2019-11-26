@@ -4,35 +4,16 @@ namespace SprintpayGateway;
 
 class Om {
 
-    public function buildDateHeader() {
-        date_default_timezone_set('UTC');
-        return date('Y-m-d\TH:i:s\Z', time());
-    }
-
-    public function buildAuthorizationHeader($apiKey, $apiSecret, $date) {
-        //Concat your keys and DateTime in the following order : APISecret + APIKey + DateTime
-        $toSign = $apiSecret . $apiKey . $date;
-
-        //Sign using SHA1.
-        $messageBytes = utf8_encode($toSign);
-        $secretBytes = utf8_encode($apiSecret);
-        $result = hash_hmac('sha1', $messageBytes, $secretBytes);
-
-        //Encode the result in base 64.
-        $signature = base64_encode($result);
-
-        //Concat all results like this: SP:APIKey:signature
-        return "SP:" . $apiKey . ':' . $signature;
-    }
-
-
+  
     public static function makePaiementFees($numero,$montant,$description,$nom,$prenom,$email,$produit,$pays,$apikey,$apisecret) {
 
         $curl = curl_init(); $today = date("Y-m-d H:i:s");
 
-        $datetime = buildDateHeader(); 
+        $config = new Config();
 
-        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
+        $datetime = $config->buildDateHeader(); 
+
+        $autorisation = $config->buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.sprint-pay.com/sprintpayapi/payment/orangemoney/request",
@@ -84,9 +65,11 @@ class Om {
 
         $curl = curl_init(); $today = date("Y-m-d H:i:s");
 
-        $datetime = buildDateHeader(); 
+        $config = new Config();
 
-        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
+        $datetime = $config->buildDateHeader(); 
+
+        $autorisation = $config->buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://test-api.sprint-pay.com/sprintpayapi/payment/orangemoney/request",
@@ -138,9 +121,11 @@ class Om {
 
         $today = date("Y-m-d H:i:s");
 
-        $datetime = buildDateHeader(); 
+        $config = new Config();
 
-        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
+        $datetime = $config->buildDateHeader(); 
+
+        $autorisation = $config->buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         $curl = curl_init();
 
@@ -214,9 +199,11 @@ class Om {
 
         $today = date("Y-m-d H:i:s");
 
-        $datetime = buildDateHeader(); 
+        $config = new Config();
 
-        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
+        $datetime = $config->buildDateHeader(); 
+
+        $autorisation = $config->buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         $curl = curl_init();
 
@@ -290,9 +277,11 @@ class Om {
 
         $curl = curl_init();
 
-        $datetime = buildDateHeader(); 
+        $config = new Config();
 
-        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
+        $datetime = $config->buildDateHeader(); 
+
+        $autorisation = $config->buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.sprint-pay.com/sprintpayapi/payment/orangemoney/check/v2?transaction=" . $transactionid . "",
@@ -339,9 +328,11 @@ class Om {
 
         $curl = curl_init();
 
-        $datetime = buildDateHeader(); 
+        $config = new Config();
 
-        $autorisation = buildAuthorizationHeader($apikey,$apisecret,$datetime);
+        $datetime = $config->buildDateHeader(); 
+
+        $autorisation = $config->buildAuthorizationHeader($apikey,$apisecret,$datetime);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://test-api.sprint-pay.com/sprintpayapi/payment/orangemoney/check/v2?transaction=" . $transactionid . "",
