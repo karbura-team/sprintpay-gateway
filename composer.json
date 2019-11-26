@@ -8,7 +8,7 @@
         "momo",
         "mobile money"
     ],
-    "homepage": "https://github.com/sprintpay-gateway",
+    "homepage": "https://github.com/sumbang/sprintpay-gateway",
     "type": "yii2-extension",
     "license": "AML",
     "authors": [
@@ -29,7 +29,7 @@
     },
     "autoload": {
         "psr-0": {
-            "SmsManager": "src/"
+            "SprintpayGateway": "src/"
         }
     },
     "extra": {
