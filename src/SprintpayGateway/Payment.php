@@ -1,0 +1,107 @@
+<?php
+
+namespace SprintpayGateway;
+
+class Payment {
+
+    public static function initialize($baseurl,$clientid,$clientoken,$phone,$orderid,$amount,$currency,$description,$companyname,$success,$failure,$notification) {
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "".$baseurl."",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 300,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\"clientId\": \"".$clientid."\",\r\n\"clientToken\": \"".$clientoken."\",\r\n\"phone\": \"".$phone."\",\r\n\"orderId\": \"".$orderid."\",\r\n\"amount\": \"".$amount."\",\r\n\"currency\": \"".$currency."\",\r\n\"description\": \"".$description."\",\r\n\"companyName\": \"".$companyname."\",\r\n\"successUrl\": \"".$success."\",\r\n\"failureUrl\": \"".$failure."\",\r\n\"notificationUrl\": \"".$notification."\"}",
+            CURLOPT_HTTPHEADER => array(
+                "cache-control: no-cache",
+                "content-type: application/json",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        
+        if ($err) {
+
+            $retour =  '{   
+                            
+                            "transaction_id": "00000",
+                            "status_desc": "Failed",
+                            "amount": "'.$montant.'",
+                            "payment_url": null,
+                            "status_code": 400,
+                            "description": "'.$err.'",
+                            "order_id": "00"
+                        
+                        }';
+
+        } else {
+
+            $retour = $response;
+        }
+
+        return $retour; 
+        
+    }
+
+
+    public static function checkstatus($baseurl,$clientid,$clientoken,$orderid){
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "".$baseurl."",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 300,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\"clientId\": \"".$clientid."\",\r\n\"clientToken\": \"".$clientoken."\",\r\n\"orderId\": \"".$orderid."\"}",
+            CURLOPT_HTTPHEADER => array(
+                "cache-control: no-cache",
+                "content-type: application/json",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        
+        if ($err) {
+
+            $retour =  '{   
+                            
+                            "transaction_id": "00000",
+                            "status_desc": "Failed",
+                            "amount": "'.$montant.'",
+                            "payment_url": null,
+                            "status_code": 400,
+                            "description": "'.$err.'",
+                            "order_id": "00"
+                        
+                        }';
+
+        } else {
+
+            $retour = $response;
+        }
+
+        return $retour; 
+
+    }
+   
+
+}
+
+?>
