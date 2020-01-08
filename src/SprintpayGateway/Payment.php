@@ -20,7 +20,7 @@ class Payment {
             CURLOPT_TIMEOUT => 300,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\"clientId\": \"".$clientid."\",\r\n\"clientToken\": \"".$clientoken."\",\r\n\"phone\": \"".$phone."\",\r\n\"orderId\": \"".$orderid."\",\r\n\"amount\": \"".$amount."\",\r\n\"currency\": \"".$currency."\",\r\n\"description\": \"".$description."\",\r\n\"companyName\": \"".$companyname."\",\r\n\"successUrl\": \"".$success."\",\r\n\"failureUrl\": \"".$failure."\",\r\n\"notificationUrl\": \"".$notification."\"}",
+            CURLOPT_POSTFIELDS => "{\r\n\"amount\": \"".$amount."\",\"clientId\": \"".$clientid."\",\r\n\"clientToken\": \"".$clientoken."\",\r\n\"companyName\": \"".$companyname."\",\r\n\"currency\": \"".$currency."\",\r\n\"description\": \"".$description."\",\r\n\"failureUrl\": \"".$failure."\",\r\n\"notificationUrl\": \"".$notification."\",\r\n\"orderId\": \"".$orderid."\",\r\n\"phone\": \"".$phone."\",\r\n\"successUrl\": \"".$success."\"}",
             CURLOPT_HTTPHEADER => array(
                 "Authorization: ".$token."",
                 "cache-control: no-cache",
