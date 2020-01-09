@@ -8,7 +8,7 @@ class Payment {
 
         $value = $privatekey."".$amount."".$clientid."".$clientoken."".$companyname."".$currency."".$description."".$failure."".$notification."".$orderid."".$phone."".$success;
 
-        $token = md5($value,true);
+        $token = md5($value);
 
         $curl = curl_init();
 
