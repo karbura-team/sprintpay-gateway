@@ -110,6 +110,8 @@ class Payment {
 
         $curl = curl_init();
 
+        $baseurl = $baseurl.'?clientId='.$clientid.'&clientToken='.$clientoken.'&orderId='.$orderid;
+
         curl_setopt_array($curl, array(
             CURLOPT_URL => "".$baseurl."",
             CURLOPT_RETURNTRANSFER => true,
@@ -117,8 +119,7 @@ class Payment {
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 300,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\"clientId\": \"".$clientid."\",\r\n\"clientToken\": \"".$clientoken."\",\r\n\"orderId\": \"".$orderid."\"}",
+            CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 "cache-control: no-cache",
                 "content-type: application/json",
