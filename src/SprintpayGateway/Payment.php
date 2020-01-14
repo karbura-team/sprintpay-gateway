@@ -61,7 +61,7 @@ class Payment {
 
         $ipadress = $_SERVER['SERVER_ADDR'];
 
-        $value = $privatekey."".$amount."".$clientid."".$clientoken."".$companyname."".$currency."".$description."".$failure."".$notification."".$orderid."".$phone."".$success."".$token;
+        $value = $privatekey."".$amount."".$clientid."".$clientoken."".$companyname."".$currency."".$description."".$failure."".$notification."".$orderid."".$phone."".$success."".$ipadress;
 
         $token = md5($value);
 
