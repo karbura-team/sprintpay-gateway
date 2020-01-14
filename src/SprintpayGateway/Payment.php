@@ -61,7 +61,7 @@ class Payment {
 
         $ipadress = $_SERVER['SERVER_ADDR'];
 
-        $value = $privatekey."".$amount."".$clientid."".$clientoken."".$companyname."".$currency."".$description."".$failure."".$notification."".$orderid."".$phone."".$success."".$ipadress;
+        $value = $privatekey."".$amount."".$clientid."".$clientoken."".$companyname."".$currency."".$description."".$failure."".$ipadress."".$notification."".$orderid."".$phone."".$success;
 
         $token = md5($value);
 
@@ -75,7 +75,7 @@ class Payment {
             CURLOPT_TIMEOUT => 300,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\r\n\"amount\": \"".$amount."\",\"clientId\": \"".$clientid."\",\r\n\"clientToken\": \"".$clientoken."\",\r\n\"companyName\": \"".$companyname."\",\r\n\"currency\": \"".$currency."\",\r\n\"description\": \"".$description."\",\r\n\"failureUrl\": \"".$failure."\",\r\n\"notificationUrl\": \"".$notification."\",\r\n\"orderId\": \"".$orderid."\",\r\n\"phone\": \"".$phone."\",\r\n\"successUrl\": \"".$success."\",\r\n\"ipAddress\": \"".$ipadress."\"}",
+            CURLOPT_POSTFIELDS => "{\r\n\"amount\": \"".$amount."\",\"clientId\": \"".$clientid."\",\r\n\"clientToken\": \"".$clientoken."\",\r\n\"companyName\": \"".$companyname."\",\r\n\"currency\": \"".$currency."\",\r\n\"description\": \"".$description."\",\r\n\"failureUrl\": \"".$failure."\",\r\n\"ipAddress\": \"".$ipadress."\",\r\n\"notificationUrl\": \"".$notification."\",\r\n\"orderId\": \"".$orderid."\",\r\n\"phone\": \"".$phone."\",\r\n\"successUrl\": \"".$success."\"}",
             CURLOPT_HTTPHEADER => array(
                 "Authorization: ".$token."",
                 "cache-control: no-cache",
