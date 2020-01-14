@@ -59,13 +59,13 @@ class Payment {
 
     public static function initialize_card($privatekey,$baseurl,$clientid,$clientoken,$phone,$orderid,$amount,$currency,$description,$companyname,$success,$failure,$notification) {
 
+        $ipadress = $_SERVER['SERVER_ADDR'];
+        
         $value = $privatekey."".$amount."".$clientid."".$clientoken."".$companyname."".$currency."".$description."".$failure."".$notification."".$orderid."".$phone."".$success;
 
         $token = md5($value);
 
         $curl = curl_init();
-
-        $ipadress = $_SERVER['SERVER_ADDR'];
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "".$baseurl."",
