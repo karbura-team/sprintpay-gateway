@@ -40,7 +40,7 @@ class Payment {
                             
                             "transaction_id": "00000",
                             "status_desc": "Failed",
-                            "amount": "'.$montant.'",
+                            "amount": "'.$amount.'",
                             "payment_url": null,
                             "status_code": 400,
                             "description": "'.$err.'",
@@ -95,7 +95,7 @@ class Payment {
                             
                             "transaction_id": "00000",
                             "status_desc": "Failed",
-                            "amount": "'.$montant.'",
+                            "amount": "'.$amount.'",
                             "payment_url": null,
                             "status_code": 400,
                             "description": "'.$err.'",
@@ -112,7 +112,7 @@ class Payment {
         
     }
 
-    public static function initialize_demo($baseurl,$clientid,$clientoken,$phone,$orderid,$amount,$currency,$description,$companyname,$success,$failure,$notification) {
+    public static function initialize_old($baseurl,$clientid,$clientoken,$phone,$orderid,$amount,$currency,$description,$companyname,$success,$failure,$notification) {
 
         $curl = curl_init();
 
@@ -143,7 +143,7 @@ class Payment {
                             
                             "transaction_id": "00000",
                             "status_desc": "Failed",
-                            "amount": "'.$montant.'",
+                            "amount": "'.$amount.'",
                             "payment_url": null,
                             "status_code": 400,
                             "description": "'.$err.'",
@@ -159,7 +159,6 @@ class Payment {
         return $retour; 
         
     }
-
 
     public static function checkstatus($baseurl,$clientid,$clientoken,$orderid){
 
@@ -193,7 +192,7 @@ class Payment {
                             
                             "transaction_id": "00000",
                             "status_desc": "Failed",
-                            "amount": "'.$montant.'",
+                            "amount": "'.$amount.'",
                             "payment_url": null,
                             "status_code": 400,
                             "description": "'.$err.'",
